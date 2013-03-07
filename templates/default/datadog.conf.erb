@@ -62,13 +62,6 @@ haproxy_password: <%= node['haproxy']['stats_password'] %>
   <% end %>
 <% end %>
 
-<% if node['mysql']['server'] %>
-# mysql
-mysql_server: <%= node['mysql']['server'] %>
-mysql_user: <%= node['mysql']['user'] %>
-mysql_pass: <%= node['mysql']['pass'] %>
-<% end %>
-
 <% if node['postgres']['server'] && node['postgres']['password'] %>
 # postgres
 postgresql_server: <%= node['postgres']['server'] %>

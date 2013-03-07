@@ -1,0 +1,10 @@
+init_config:
+
+instances:
+  - server: <%= node['datadog']['mysql']['server'] %>
+    <% if node['datadog']['mysql']['user'] %>
+    user: <%= node['datadog']['mysql']['user'] %>
+    <% end %>
+    <% if node['datadog']['mysql']['pass'] %>
+    pass: <%= node['datadog']['mysql']['pass'] %>
+    <% end %>
