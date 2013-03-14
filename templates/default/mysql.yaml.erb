@@ -1,7 +1,7 @@
 init_config:
 
 instances:
-  - server: <%= ['server'] %>
+  - server: <%= node['datadog']['mysql']['server'] %>
 <% if node['datadog']['mysql'].defined?('user') -%>
     user: <%= node['datadog']['mysql']['user'] %>
 <% end -%>
