@@ -84,10 +84,6 @@ default['datadog']['haproxy']['stats_user'] = nil
 default['datadog']['haproxy']['stats_password'] = nil
 default['datadog']['haproxy']['stats_url'] = nil
 
-# mysql
-default['datadog']['mysql']['server'] = nil        # localhost
-default['datadog']['mysql']['user'] = "readonly"
-default['datadog']['mysql']['pass'] = "readonly"
 
 # rabbitmq
 default['datadog']['rabbitmq']['api_url'] = nil # http://www.example.com:15672/api/
