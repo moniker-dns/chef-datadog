@@ -1,10 +1,16 @@
 init_config:
 
 instances:
-  - server: <%= node['datadog']['mysql']['server'] %>
-    <% if node['datadog']['mysql']['user'] %>
+  - server: <%= ['server'] %>
+<% if node['datadog']['mysql'].defined?('user') -%>
     user: <%= node['datadog']['mysql']['user'] %>
-    <% end %>
-    <% if node['datadog']['mysql']['password'] %>
+<% end -%>
+<% if node['datadog']['mysql'].defined?('password') -%>
     pass: <%= node['datadog']['mysql']['password'] %>
-    <% end %>
+<% end -%>
+<% if node['datadog']['mysql'].defined?('tags') -%>
+    tags:
+  <% node['datadog']['mysql']['tags'].each do |t| -%>
+    - <%= t %>
+  <% end -%>
+<% end -%>
