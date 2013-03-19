@@ -14,3 +14,9 @@ instances:
     - <%= t %>
   <% end -%>
 <% end -%>
+<% if node['datadog']['mysql'].defined?('options') -%>
+    options:
+  <% node['datadog']['mysql']['options'].each do |opt,val| -%>
+     <%= opt %>: <%= val %>
+  <% end -%>
+<% end -%>
