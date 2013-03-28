@@ -23,6 +23,10 @@ dogstreams: <%= node['datadog']['dogstreams'].join(', ') %>
 graphite_listen_port: <%= node['datadog']['graphite_port'] %>
 <% end %>
 
+<% if node['roles'].include?('icinga') %>
+nagios_log: <%= node['icinga']['log_dir'] %>/icinga.log
+<% end %>
+
 <% if node['datadog']['dogstatsd'] %>
 # ========================================================================== #
 # DogStatsd configuration                                                    #
