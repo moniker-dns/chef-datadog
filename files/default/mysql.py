@@ -258,10 +258,12 @@ class MySql(AgentCheck):
     
                 self.log.debug("Collect cpu stats")
                 self._collect_procfs(tags=tags)
-
+		
+		# check cluster size, only if using galera_clustering
                 if ('galera_cluster' in options.keys() and options['galera_cluster']):
                     self.gauge('mysql.galera.wsrep_cluster_size', self._collect_scalar("SHOW STATUS LIKE 'wsrep_cluster_size'"), tags=tags)
-    
+   	
+		# check replication, only if replication on 
                 if ('replication' in options.keys() and options['replication']):
                     self._collect_dict("gauge", {"Seconds_behind_master": "mysql.seconds_behind_master"}, "SHOW SLAVE STATUS", tags=tags)
     
