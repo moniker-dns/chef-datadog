@@ -4,7 +4,7 @@ instances:
 <% node.datadog.nginx.each do |a| -%>
   - nginx_status_url: <%= a['status_url'] %>
     tags:
-  <% if a.defined?('tags') -%>
+  <% if a.has_key?('tags') -%>
     <% a['tags'].each do |t| -%>
     - <%= t %>
     <% end -%>
