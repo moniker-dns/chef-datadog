@@ -13,4 +13,12 @@ package "python-mysql" do
   end
   action :install
 end
+
+# TODO: mysql agent (this needs its own repo - this is a temporary setup)
+cookbook_file "/usr/share/datadog/agent/checks.d/mysql.py" do
+  source    "mysql.py"
+  mode      0755
+  action    :create
+end
+
 datadog_ddmonitor "mysql"
