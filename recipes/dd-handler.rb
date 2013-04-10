@@ -20,19 +20,24 @@
 include_recipe "chef_handler"
 ENV["DATADOG_HOST"] = node['datadog']['url']
 
-if(Gem::Version.new(Chef::VERSION) < Gem::Version.new('0.10.9'))
-  Chef::Log.debug 'Installing gem with trick method'
-  # This method ensures that the gem will be available for loading on the first run
-  # TODO: Remove once 0.10.8 is fully end-of-life
-  r = gem_package "chef-handler-datadog" do
-    action :nothing
-  end
-  r.run_action(:install)
-  Gem.clear_paths
+if node['datadog']['handler_install_method'] == 'package'
+  package 'chef-handler-datadog'
 else
-  # The chef_gem provider was introduced in Chef 0.10.10
-  chef_gem "chef-handler-datadog"
+  if(Gem::Version.new(Chef::VERSION) < Gem::Version.new('0.10.9'))
+    Chef::Log.debug 'Installing gem with trick method'
+    # This method ensures that the gem will be available for loading on the first run
+    # TODO: Remove once 0.10.8 is fully end-of-life
+    r = gem_package "chef-handler-datadog" do
+      action :nothing
+    end
+    r.run_action(:install)
+    Gem.clear_paths
+  else
+    # The chef_gem provider was introduced in Chef 0.10.10
+    chef_gem "chef-handler-datadog"
+  end
 end
+
 require 'chef/handler/datadog'
 
 # Create the handler to run at the end of the Chef execution
