@@ -21,7 +21,9 @@ include_recipe "chef_handler"
 ENV["DATADOG_HOST"] = node['datadog']['url']
 
 if node['datadog']['handler_install_method'] == 'package'
-  package 'chef-handler-datadog'
+  package 'chef-handler-datadog' do
+    action :nothing
+  end.run_action(:install)
 else
   if(Gem::Version.new(Chef::VERSION) < Gem::Version.new('0.10.9'))
     Chef::Log.debug 'Installing gem with trick method'
